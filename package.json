@@ -1,7 +1,6 @@
 {
   "name": "hh-school-react",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
