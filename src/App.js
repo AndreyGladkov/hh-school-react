@@ -1,9 +1,6 @@
-import React, { Fragment } from "react";
+import React from 'react';
+import Modal from './Modal';
 
 export default function App() {
-  return (
-      <Fragment>
-          ui toolkit : <a href="https://material-ui.com/getting-started/installation/">material-ui</a>
-      </Fragment>
-  );
+  return <Modal />;
 };
