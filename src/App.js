@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
+import Search from "./components/Search"
 
 export default function App() {
   return (
-      <Fragment>
-          ui toolkit : <a href="https://material-ui.com/getting-started/installation/">material-ui</a>
-      </Fragment>
-  );
-};
+    <Fragment>
+        <Search/>
+    </Fragment>)
+}
