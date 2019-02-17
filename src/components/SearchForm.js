@@ -1,4 +1,7 @@
 import React from "react";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import FormGroup from '@material-ui/core/FormGroup';
 
 export default class SearchForm extends React.Component {
   constructor(props) {
@@ -11,9 +14,15 @@ export default class SearchForm extends React.Component {
   render() {
     return (
       <form>
-          <input type="text" value={this.state.id} onChange={this.updateInputValue} />
-          <input type="button" onClick={this.search} value="Search"/>
-          <input type="button" onClick={this.feelingLucky} value="I'm feeling lucky" />
+          <FormGroup row={true}>
+              <TextField style={{ flex: 1 }} value={this.state.id} onChange={this.updateInputValue}/>
+              <Button size="small" variant="outlined" color="primary" onClick={this.search}>
+                  Search
+              </Button>
+              <Button size="small" variant="outlined" color="primary" onClick={this.feelingLucky}>
+                  I'm feeling lucky
+              </Button>
+          </FormGroup>
       </form>)
   }
   updateInputValue(event) {

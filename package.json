@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@koa/cors": "2",
+    "@material-ui/core": "^3.9.2",
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
