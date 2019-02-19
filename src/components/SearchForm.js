@@ -20,7 +20,7 @@ export default class SearchForm extends React.Component {
                   Search
               </Button>
               <Button size="small" variant="outlined" color="primary" onClick={this.feelingLucky}>
-                  I'm feeling lucky
+                  {"I'm feeling lucky"}
               </Button>
           </FormGroup>
       </form>)
