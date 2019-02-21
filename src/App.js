@@ -6,10 +6,10 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.URL = 'http://localhost:9200/api';
+    this.logComponents = [];
     this.state = {
       inputValue: '',
-      searchStatus: 'success',
-      logComponents: []
+      searchStatus: 'success'
     };
   }
 
@@ -17,10 +17,10 @@ export default class App extends React.Component {
     return (
         <Fragment>
           <input className='searchInput' value={this.state.inputValue} onChange={ event => this.updateInputValue(event.target.value) }/>
-          <button onClick={ () => this.search(this.state.inputValue) }>Search</button>
-          <button onClick={ () => this.handleFeelingLuckyClick() }>I'm Feeling Lucky</button>          
+          <button onClick={this.search}>Search</button>
+          <button onClick={this.handleFeelingLuckyClick}>{"I'm Feeling Lucky"}</button>          
           <div>
-            {this.state.searchStatus === 'failed' ? <span>Search failed</span> : this.state.logComponents}
+            {this.state.searchStatus === 'failed' ? <span>Search failed</span> : this.logComponents}
           </div>
         </Fragment>
     );
@@ -32,7 +32,7 @@ export default class App extends React.Component {
     });
   }
 
-  handleFeelingLuckyClick() {
+  handleFeelingLuckyClick = () => {
     fetch(this.URL + '/feelinglucky')
     .then((response) => {
 			if (response.status !== 200) {
@@ -48,18 +48,18 @@ export default class App extends React.Component {
     });
   }
 
-  search(rid) {
-    fetch(this.URL + '/logs?rid=' + rid)
+  search = () => {
+    fetch(this.URL + '/logs?rid=' + this.state.inputValue)
     .then((response) => {
 			if (response.status !== 200) {
 				throw new Error("Can't fetch response. Response status: " + response.status);
       }
-      this.setState({searchStatus: 'success'});
 			return response.json();
     })
     .then((data) => {
+      this.logComponents = Object.keys(data).map(item => <LogComponent key={item} logComponentTitle={item} logComponentItems={data[item]} />)
       this.setState({
-        logComponents: Object.keys(data).map(item => <LogComponent key={item} logComponentTitle={item} logComponentItems={data[item]} />)
+        searchStatus: 'success'
       });
     })
     .catch(() => {
