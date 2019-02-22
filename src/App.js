@@ -6,10 +6,10 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.URL = 'http://localhost:9200/api';
-    this.logComponents = [];
     this.state = {
       inputValue: '',
-      searchStatus: 'success'
+      searchStatus: 'success',
+      logData: []
     };
   }
 
@@ -20,7 +20,14 @@ export default class App extends React.Component {
           <button onClick={this.search}>Search</button>
           <button onClick={this.handleFeelingLuckyClick}>{"I'm Feeling Lucky"}</button>          
           <div>
-            {this.state.searchStatus === 'failed' ? <span>Search failed</span> : this.logComponents}
+            {this.state.searchStatus === 'failed' ? (
+              <span>Search failed</span>
+              ) : (
+                Object.keys(this.state.logData).map(item => 
+                (
+                  <LogComponent key={item} logComponentTitle={item} logComponentItems={this.state.logData[item]} />
+                ))                
+              )}
           </div>
         </Fragment>
     );
@@ -57,9 +64,9 @@ export default class App extends React.Component {
 			return response.json();
     })
     .then((data) => {
-      this.logComponents = Object.keys(data).map(item => <LogComponent key={item} logComponentTitle={item} logComponentItems={data[item]} />)
       this.setState({
-        searchStatus: 'success'
+        searchStatus: 'success',
+        logData: data
       });
     })
     .catch(() => {
