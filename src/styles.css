@@ -1,0 +1,11 @@
+.errorLogItem {
+    color:red;
+}
+
+.normalLogItem {
+    color: green;
+}
+
+.searchInput {
+    width: 400px;
+}
