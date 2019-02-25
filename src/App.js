@@ -1,35 +1,5 @@
 import React from "react";
-
-function LogBatch(props) {
-  let logList = props.logBatch;
-  return (
-    <ul>
-      {Object.keys(logList).map(logKey => (
-        <li key={logKey}>{Object.values(logList[logKey]).join('; ')}</li>
-      ))}
-    </ul>
-  );
-}
-
-function LogBatches(props) {
-  let logs = props.logs;
-  if (logs === undefined) {
-    return null;
-  }
-  let listOfHeaders = Object.keys(logs);
-  return (
-    <div>
-      {listOfHeaders.map((logHead, index) =>
-        (
-          <div key={index}>
-            <h3>{logHead}</h3>
-            <LogBatch logBatch={logs[logHead]}/>
-          </div>
-        )
-      )}
-    </div>
-  );
-}
+import LogBatches from "./LogBatches";
 
 export default class App extends React.Component {
 
