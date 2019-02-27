@@ -4,19 +4,11 @@ export default class Form extends PureComponent {
     state = {
         rid: ""
     };
-    input = React.createRef();
 
     add = func => {
-        if (!this.input.current.value.trim()) {
-            return;
+        if (this.state.rid) {
+            this.props[func](this.state.rid);
         }
-        this.props[func](this.input.current.value);
-        this.input.current.value = "";
-    };
-
-    feelingLucky = () => {
-        this.getRid();
-        this.input.current.value = this.state.rid;
     };
 
     getRid = () => {
@@ -37,9 +29,9 @@ export default class Form extends PureComponent {
     render() {
         return (
             <Fragment>
-                <input ref={this.input} />
+                <input type="text" value={this.state.rid} onChange={e => this.setState({rid: e.target.value})}/>
                 <button onClick={this.add.bind(this, "search")}>Search</button>
-                <button onClick={this.feelingLucky}>
+                <button onClick={this.getRid}>
                     I'm Feeling Lucky
                 </button>
             </Fragment>
