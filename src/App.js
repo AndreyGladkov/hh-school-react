@@ -33,28 +33,3 @@ export default class App extends Component {
         );
     }
 }
-
-
-// export default function App() {
-//
-//     return (
-//         <div id="page">
-//             <div id="toolbox" class="toolbox">
-//                 <Input className={"searchInput"}>
-//                 </Input>
-//                 <Button className={"actionButton"}
-//                         variant="contained"
-//                         color="primary"
-//                         onClick={}>
-//                     Search
-//                 </Button>
-//                 <Button className={"actionButton"} variant="contained" color="primary">
-//                     I'm Feeling Lucky
-//                 </Button>
-//             </div>
-//
-//             <LogPanel/>
-//
-//         </div>
-//     );
-// };
