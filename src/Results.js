@@ -1,4 +1,27 @@
 import React, { PureComponent, Component } from "react";
+import { styled } from '@material-ui/styles';
+
+const StyledH2 = styled("h2")({
+    padding: "0px 20px",
+    "font-family": "Poppins, sans-serif",
+});
+
+const StyledLi = styled("ul")({
+    "list-style-type": "none",
+    margin: '0px 0px 0px -20px',
+    padding: '5px 0px',
+    "font-family": "Poppins, sans-serif"
+});
+
+// Like https://github.com/brunobertolini/styled-by
+const styledBy = (property, mapping) => props => mapping[props[property]];
+
+const StyledSpan = styled(({ color, ...other }) => <span {...other} />)({
+    color: styledBy('color', {
+        red: 'red',
+        black: '#000',
+    })
+});
 
 export default class Results extends Component {
     render() {
@@ -7,7 +30,7 @@ export default class Results extends Component {
             <div>
                 {Object.keys(this.props.response).map(key => (
                     <div key={key}>
-                        <h3>{key}</h3>
+                        <StyledH2>{key}</StyledH2>
                         <Logs logs={this.props.response[key]}/>
                     </div>
                 ))}
@@ -20,15 +43,15 @@ class Logs extends PureComponent {
     render() {
         if (!this.props.logs) return null;
         return (
-            <div>
+            <ul>
                 {this.props.logs.map(log => (
-                    <div key={log.timestamp + log.hostname + log.lvl}>
-                        <span>{log.timestamp} </span>
-                        <span>{log.lvl} </span>
-                        <span>{log.message}</span>
-                    </div>
+                    <StyledLi key={log.timestamp + log.hostname + log.lvl}>
+                        <b>{log.timestamp}</b>
+                        <StyledSpan color={log.lvl === 'ERROR' ? 'red' : 'black'}> {log.lvl}</StyledSpan>
+                        <span> {log.message}</span>
+                    </StyledLi>
                 ))}
-            </div>
+            </ul>
         );
     }
 }
