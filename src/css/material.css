@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+}
+
+.actionButton {
+  background: none !important;
+  box-shadow: none !important;
+  color: #3578f2 !important;
+  border: 1px solid #3578f2 !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  display: table-cell !important;
+}
+
+.searchInput {
+  width: auto !important;
+  border: 1px solid #c9d0d3 !important;
+  outline: none !important;
+  padding-left: 10px;
+  flex: 1 1;
+}
+
+.searchInput:before {
+  border: none !important;
+}
+
+.searchInput:after {
+  border: none !important;
+}

@@ -2,6 +2,7 @@
   "name": "hh-school-react",
   "version": "0.1.0",
   "dependencies": {
+    "@material-ui/core": "latest",
     "@koa/cors": "2",
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
@@ -14,7 +15,7 @@
     "start": "node server/app.js",
     "dev": "react-scripts start & yarn start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scrip92ts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
