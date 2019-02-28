@@ -13,13 +13,12 @@ export default class App extends Component {
         fetch(URL)
             .then(res => {
                 if (res.status !== 200) {
-                    this.setState({response: {Oops: [{message:"Something wrong with request ID"}]}});
+                    return {Oops: [{message: "Something wrong with request ID"}]};
                 }
                 return res.json();
             })
             .then(json => {
                 this.setState({ response: json });
-                console.log(json)
             });
     };
 
