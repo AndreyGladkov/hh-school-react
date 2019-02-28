@@ -41,11 +41,7 @@ export default class Form extends PureComponent {
         const URL = "http://localhost:9200/api/feelinglucky";
         fetch(URL)
             .then(res => {
-                if (res.status !== 200) {
-                    this.setState({response: {error: "not found"}});
-                    throw new Error("Error while fetching getRid. Response status: " + res.status);
-                }
-                return res.json();
+                if (res.status === 200) return res.json();
             })
             .then(json => {
                 this.setState({ rid: json.rid });

@@ -5,7 +5,7 @@ import Form from "./Form";
 
 export default class App extends Component {
     state = {
-        response: []
+        response: {}
     };
 
     getLogs = rid => {
@@ -13,13 +13,13 @@ export default class App extends Component {
         fetch(URL)
             .then(res => {
                 if (res.status !== 200) {
-                    this.setState({response: {error: "not found"}});
-                    throw new Error("Error while fetching getLogs. Response status: " + res.status);
+                    this.setState({response: {Oops: [{message:"Something wrong with request ID"}]}});
                 }
                 return res.json();
             })
             .then(json => {
                 this.setState({ response: json });
+                console.log(json)
             });
     };
 
