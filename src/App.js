@@ -1,77 +1,57 @@
 import React, { Fragment } from "react";
-import LogComponent from "./components/LogComponent"
-import "./styles.css"
+import ReactDOM from "react-dom";
+import { connect, Provider } from "react-redux";
+
+import LogComponent from "./components/LogComponent";
+
+import store from "./store";
+
+import "./styles.css";
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.URL = 'http://localhost:9200/api';
-    this.state = {
-      inputValue: '',
-      searchStatus: 'success',
-      logData: []
-    };
-  }
-
   render() {
     return (
-        <Fragment>
-          <input className='searchInput' value={this.state.inputValue} onChange={ event => this.updateInputValue(event.target.value) }/>
-          <button onClick={this.search}>Search</button>
-          <button onClick={this.handleFeelingLuckyClick}>{"I'm Feeling Lucky"}</button>          
-          <div>
-            {this.state.searchStatus === 'failed' ? (
-              <span>Search failed</span>
-              ) : (
-                Object.keys(this.state.logData).map(item => 
-                (
-                  <LogComponent key={item} logComponentTitle={item} logComponentItems={this.state.logData[item]} />
-                ))                
-              )}
-          </div>
-        </Fragment>
+      <Fragment>
+        <input
+          className="searchInput"
+          value={this.props.logs.inputValue}
+          //onChange={event => this.updateInputValue(event.target.value)}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            console.log("clicked search2");
+            console.log("this.props", this.props);
+            console.log("logs: ", this.props.logs);
+            this.props.search(this.props.logs.inputValue);
+          }}
+        >
+          Search
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            console.log("clicked feeling lucky");
+            console.log("this.props", this.props);
+            this.props.getLucky();
+          }}
+        >
+          {"I'm Feeling Lucky"}
+        </button>
+        <div>
+          {this.props.logs.searchStatus === "failed" ? (
+            <span>Search failed</span>
+          ) : (
+            Object.keys(this.props.logs.logData).map(item => (
+              <LogComponent
+                key={item}
+                logComponentTitle={item}
+                logComponentItems={this.props.logs.logData[item]}
+              />
+            ))
+          )}
+        </div>
+      </Fragment>
     );
   }
-
-  updateInputValue(value) {
-    this.setState({
-      inputValue: value
-    });
-  }
-
-  handleFeelingLuckyClick = () => {
-    fetch(this.URL + '/feelinglucky')
-    .then((response) => {
-			if (response.status !== 200) {
-				throw new Error("Can't fetch response. Response status: " + response.status);
-			}
-			return response.json();
-    })
-    .then((data) => {
-      this.updateInputValue(data.rid)
-    })
-    .catch(() => {
-      this.updateInputValue('')
-    });
-  }
-
-  search = () => {
-    fetch(this.URL + '/logs?rid=' + this.state.inputValue)
-    .then((response) => {
-			if (response.status !== 200) {
-				throw new Error("Can't fetch response. Response status: " + response.status);
-      }
-			return response.json();
-    })
-    .then((data) => {
-      this.setState({
-        searchStatus: 'success',
-        logData: data
-      });
-    })
-    .catch(() => {
-      this.setState({searchStatus: 'failed'});
-    });
-  }
-
-};
+}
