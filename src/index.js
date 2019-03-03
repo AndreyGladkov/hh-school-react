@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { connect, Provider } from "react-redux";
 
-import { search, getLucky } from "./models/logs";
+import { search } from "./models/logs";
+import { updateInputValue, getLucky } from "./models/params"; 
 
 import store from "./store";
 
@@ -12,11 +13,13 @@ const rootElement = document.getElementById("root");
 
 const AppContainer = connect(
   state => ({
-    logs: state.logs
+    logs: state.logs,
+    params: state.params
   }),
-  {
+   {
     getLucky,
-    search
+    search,
+    updateInputValue
   }
 )(App);
 

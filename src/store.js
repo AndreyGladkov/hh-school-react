@@ -1,6 +1,7 @@
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 
 import logs from "./models/logs";
+import params from "./models/params";
 import thunk from "./middlewares/thunk";
 
 const composeEnhancers =
@@ -9,15 +10,17 @@ const composeEnhancers =
   compose;
 
 const stateFromServer = {
-  //inputValue: "привет",
-  //searchStatus: "success",
+  params: {
+    inputValue: ""
+  },
   logs: {
     logData: []
   }
 };
 
 const reducer = combineReducers({
-  logs
+  params, // input value
+  logs    // finded logs
 });
 
 export default createStore(
