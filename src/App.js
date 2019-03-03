@@ -5,24 +5,53 @@ import ToolBox from "./ToolBox";
 
 export default class App extends Component {
     state = {
-        logs: [
-            {lineText: "line 1", id: 1},
-            {lineText: "line 2", id: 2},
-            {lineText: "line 3", id: 3}
-        ]
+        logs: []
     };
 
     searchLog = reqId => {
-        console.log(reqId);
-        this.setState(state => ({
-            logs: state.logs + "\nNew log text"
+        console.log("in search log: " + reqId);
+        let self = this;
+        let req = new XMLHttpRequest();
+        req.open('GET', 'http://localhost:9200/api/logs?rid=' + reqId);
+        req.send(null);
+
+        console.log(JSON.parse("{\"text\": \"Loading...\"}"));
+
+        self.setState(state => ({
+            logs: {text: "Loading..."}
         }));
+
+        req.onloadend = function () {
+            if (req.status === 200) {
+                self.setState(state => ({
+                    logs: JSON.parse(req.responseText)
+                }));
+            } else {
+                self.setState(state => ({
+                    logs: {text: "Error. Response status:" + req.status}
+                }));
+            }
+
+        };
     };
 
-    feelLucky = reqId => {
-        console.log("reqId: " + reqId);
+    feelLucky = () => {
+        let self = this;
+        let req = new XMLHttpRequest();
+        req.open('GET', 'http://localhost:9200/api/feelinglucky');
+        req.send(null);
+        req.onloadend = function () {
+            if (req.status === 200) {
+                self.setState(state => ({
+                    logs: JSON.parse(req.responseText)
+                }));
+            } else {
+                self.setState(state => ({
+                    logs: {text: "Error. Response status:" + req.status}
+                }));
+            }
+        };
     };
-
 
     render() {
         return (
