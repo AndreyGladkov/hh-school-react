@@ -31,9 +31,9 @@ export default class Form extends PureComponent {
         rid: ""
     };
 
-    add = func => {
+    runSearch = () => {
         if (this.state.rid) {
-            this.props[func](this.state.rid);
+            this.props.search(this.state.rid);
         }
     };
 
@@ -41,7 +41,10 @@ export default class Form extends PureComponent {
         const URL = "http://localhost:9200/api/feelinglucky";
         fetch(URL)
             .then(res => {
-                if (res.status === 200) return res.json();
+                if (res.status !== 200) {
+                    return {rid: "Not found"};
+                }
+                return res.json();
             })
             .then(json => {
                 this.setState({ rid: json.rid });
@@ -52,7 +55,7 @@ export default class Form extends PureComponent {
         return (
             <FormGroup row={true}>
                 <StyledInput value={this.state.rid} onChange={e => this.setState({rid: e.target.value})}/>
-                <StyledButton variant="contained" color="primary" onClick={this.add.bind(this, "search")}>Search</StyledButton>
+                <StyledButton variant="contained" color="primary" onClick={this.runSearch}>Search</StyledButton>
                 <StyledButton variant="contained" color="primary" onClick={this.getRid}>
                     I'm Feeling Lucky
                 </StyledButton>

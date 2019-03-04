@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from "react";
+import React from "react";
 import { styled } from '@material-ui/styles';
 
 const StyledH2 = styled("h2")({
@@ -23,35 +23,29 @@ const StyledSpan = styled(({ color, ...other }) => <span {...other} />)({
     })
 });
 
-export default class Results extends Component {
-    render() {
-        if (!this.props.response) return null;
-        return (
-            <div>
-                {Object.keys(this.props.response).map(key => (
-                    <div key={key}>
-                        <StyledH2>{key}</StyledH2>
-                        <Logs logs={this.props.response[key]}/>
-                    </div>
-                ))}
-            </div>
-        );
-    }
+export default function Results(props) {
+    return (
+        <div>
+            {(!props.response) ? null : Object.keys(props.response).map(key => (
+                <div key={key}>
+                    <StyledH2>{key}</StyledH2>
+                    <Logs logs={props.response[key]}/>
+                </div>
+            ))}
+        </div>
+    );
 }
 
-class Logs extends PureComponent {
-    render() {
-        if (!this.props.logs) return null;
-        return (
-            <ul>
-                {this.props.logs.map(log => (
-                    <StyledLi key={log.timestamp + log.hostname + log.lvl}>
-                        <b>{log.timestamp}</b>
-                        <StyledSpan color={log.lvl === 'ERROR' ? 'red' : 'black'}> {log.lvl}</StyledSpan>
-                        <span> {log.message}</span>
-                    </StyledLi>
-                ))}
-            </ul>
-        );
-    }
+function Logs(props) {
+    return (
+        <ul>
+            {(!props.logs) ? null : props.logs.map(log => (
+                <StyledLi key={log.timestamp + log.hostname + log.lvl}>
+                    <b>{log.timestamp}</b>
+                    <StyledSpan color={log.lvl === 'ERROR' ? 'red' : 'black'}> {log.lvl}</StyledSpan>
+                    <span> {log.message}</span>
+                </StyledLi>
+            ))}
+        </ul>
+    );
 }
