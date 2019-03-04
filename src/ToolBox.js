@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button/Button";
 
 export default class ToolBox extends PureComponent {
 
-    update = () => {
+    searchLogs = () => {
         this.props.search(this.input.value);
     };
 
@@ -19,7 +19,7 @@ export default class ToolBox extends PureComponent {
                     <Input className={"searchInput"} inputRef={input => (this.input = input)}>
                     </Input>
                     <Button className={"actionButton"} variant="contained" color="primary"
-                            onClick={this.update}>
+                            onClick={this.searchLogs}>
                         Search
                     </Button>
                     <Button className={"actionButton"} variant="contained" color="primary"
