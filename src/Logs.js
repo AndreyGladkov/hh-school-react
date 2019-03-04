@@ -4,8 +4,8 @@ export default class Logs extends Component {
     render() {
         return (
             <div className={"log-panel"}>
-                {Object.keys(this.props.logs).map((lineText, index) => (
-                    <LogSection key={index} line={this.props.logs[lineText]}>{lineText}</LogSection>
+                {Object.keys(this.props.logs).map((jsonKey, index) => (
+                    <LogSection key={index} jsonValue={this.props.logs[jsonKey]}>{jsonKey}</LogSection>
                 ))}
             </div>
         );
@@ -15,13 +15,13 @@ export default class Logs extends Component {
 class LogSection extends PureComponent {
     render() {
         let content;
-        if (this.props.children === "rid" || this.props.children === "text") {
-            content = <span className={"log-header"}>{this.props.line}</span>;
+        if (!Array.isArray(this.props.jsonValue)) {
+            content = <span className={"log-header"}>{this.props.jsonValue}</span>;
         } else {
             content = <div>
                 <span className={"log-header"}>{this.props.children}</span>
-                {this.props.line.map((value, index) => (
-                    <LogLine key={index}>{value}</LogLine>
+                {this.props.jsonValue.map((value, index) => (
+                    <LogjsonValue key={index}>{value}</LogjsonValue>
                 ))}
             </div>;
         }
@@ -29,7 +29,7 @@ class LogSection extends PureComponent {
     }
 }
 
-class LogLine extends PureComponent {
+class LogjsonValue extends PureComponent {
     render() {
         return <p>
             <span className={"log-field log-timestamp"}>{this.props.children.timestamp}</span>
