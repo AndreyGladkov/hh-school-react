@@ -24,7 +24,11 @@ export default class App extends Component {
         }));
         fetch(url)
             .then(function (response) {
-                return response.json();
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network Error.  Status code: ' + response.status);
+                }
             })
             .then(function (json) {
                 self.setState(state => ({
@@ -32,9 +36,8 @@ export default class App extends Component {
                 }));
             })
             .catch((error) => {
-                console.error(error);
                 self.setState(state => ({
-                    logs: {text: "Network Error."}
+                    logs: {text: error.message}
                 }));
             });
     };
