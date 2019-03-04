@@ -81,7 +81,7 @@ const data = {
       {
         timestamp: "2019-02-05 07:33:50.311+0300",
         message:
-          "192.168.1.199\t1549341230310eb804464227c82c7fc9\t200\t0 ms\tGET\t/session/json?search-session-count=true",
+          "192.168.1.199\t1549341230310eb804464227c82c7fc9\t200\t0 ms\tGET\t/session/json?update-session-count=true",
         hostname: "docker21",
         index: "requests",
         hasCurrentRid: true

@@ -15,7 +15,7 @@ export default class ToolBox extends PureComponent {
                     </Button>
                     <Button className={"actionButton"} variant="contained" color="primary"
                             onClick={this.props.feelLucky}>
-                        I'm Feeling Lucky
+                        {"I'm Feeling Lucky"}
                     </Button>
                 </div>
             </Fragment>
