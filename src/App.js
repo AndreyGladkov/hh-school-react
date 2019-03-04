@@ -13,15 +13,15 @@ export default class App extends Component {
 
     doFetch = (reqId) => {
         let self = this;
+        let url = this.apiURL;
+        if (typeof reqId === 'string') {
+            url += '/logs?rid=' + reqId;
+        } else {
+            url += "/feelinglucky";
+        }
         self.setState(state => ({
             logs: {text: "Loading..."}
         }));
-        let url = this.apiURL;
-        if (!reqId) {
-            url += "/feelinglucky";
-        } else {
-            url += '/logs?rid=' + reqId;
-        }
         fetch(url)
             .then(function (response) {
                 return response.json();
@@ -31,7 +31,8 @@ export default class App extends Component {
                     logs: json
                 }));
             })
-            .catch(() => {
+            .catch((error) => {
+                console.error(error);
                 self.setState(state => ({
                     logs: {text: "Network Error."}
                 }));

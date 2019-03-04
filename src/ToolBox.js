@@ -4,26 +4,17 @@ import Button from "@material-ui/core/Button/Button";
 
 export default class ToolBox extends PureComponent {
 
-    searchLogs = () => {
-        this.props.search(this.input.value);
-    };
-
-    feelLucky = () => {
-        this.props.feelLucky();
-    };
-
     render() {
         return (
             <Fragment>
                 <div id="toolbox" className="toolbox">
-                    <Input className={"searchInput"} inputRef={input => (this.input = input)}>
-                    </Input>
+                    <Input className={"searchInput"} inputRef={input => (this.input = input)}/>
                     <Button className={"actionButton"} variant="contained" color="primary"
-                            onClick={this.searchLogs}>
+                            onClick={() => this.props.search(this.input.value)}>
                         Search
                     </Button>
                     <Button className={"actionButton"} variant="contained" color="primary"
-                            onClick={this.feelLucky}>
+                            onClick={this.props.feelLucky}>
                         I'm Feeling Lucky
                     </Button>
                 </div>

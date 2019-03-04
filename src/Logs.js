@@ -21,7 +21,7 @@ class LogSection extends PureComponent {
             content = <div>
                 <span className={"log-header"}>{this.props.children}</span>
                 {this.props.jsonValue.map((value, index) => (
-                    <LogjsonValue key={index}>{value}</LogjsonValue>
+                    <LogLine key={index}>{value}</LogLine>
                 ))}
             </div>;
         }
@@ -29,7 +29,7 @@ class LogSection extends PureComponent {
     }
 }
 
-class LogjsonValue extends PureComponent {
+class LogLine extends PureComponent {
     render() {
         return <p>
             <span className={"log-field log-timestamp"}>{this.props.children.timestamp}</span>
