@@ -2,6 +2,7 @@
   "name": "hh-school-react",
   "version": "0.1.0",
   "dependencies": {
+    "@material-ui/core": "latest",
     "@koa/cors": "2",
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",

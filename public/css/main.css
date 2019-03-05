@@ -1,0 +1,29 @@
+.toolbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.log-panel {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.log-header {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Courier New";
+}
+
+.log-field {
+  margin-right: 5px;
+}
+
+.log-timestamp {
+  color: blue;
+}
+
+
+.log-lvl {
+  font-weight: bold;
+  font-family: "Courier New";
+}
