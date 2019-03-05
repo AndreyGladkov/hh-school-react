@@ -3,34 +3,41 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
 
-export default function SearchForm(props) {
-  const { rid, onFormActions } = props;
-  const { onFeelingLucky, onInput, onSearch } = onFormActions;
-  return (
-    <form>
-      <FormGroup row={true}>
-        <TextField
-          style={{ flex: 1 }}
-          value={rid}
-          onChange={e => onInput(e.target.value)}
-        />
-        <Button
-          size="small"
-          variant="outlined"
-          color="primary"
-          onClick={() => onSearch(rid)}
-        >
-          Search
-        </Button>
-        <Button
-          size="small"
-          variant="outlined"
-          color="primary"
-          onClick={onFeelingLucky}
-        >
-          {"I'm feeling lucky"}
-        </Button>
-      </FormGroup>
-    </form>
-  );
-}
+import { connect } from "react-redux";
+import { setRID, feelingLucky, getLogs } from "../store";
+
+const SearchFormButton = ({ onClick, children }) => (
+  <Button
+    size="small"
+    variant="outlined"
+    color="primary"
+    onClick={onClick}
+    children={children}
+  />
+);
+
+const SearchForm = props => (
+  <form>
+    <FormGroup row={true}>
+      <TextField
+        style={{ flex: 1 }}
+        value={props.rid}
+        onChange={e => props.setRID(e.target.value)}
+      />
+      <SearchFormButton onClick={() => props.getLogs(props.rid)}>
+        Search
+      </SearchFormButton>
+      <SearchFormButton onClick={props.feelingLucky}>
+        {"I'm feeling lucky"}
+      </SearchFormButton>
+    </FormGroup>
+  </form>
+);
+
+const mapStateToProps = ({ rid }) => ({ rid });
+const mapDispatchToProps = { setRID, feelingLucky, getLogs };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchForm);
