@@ -3,51 +3,44 @@ import './css/material.css';
 import Logs from "./Logs";
 import ToolBox from "./ToolBox";
 
-export default class App extends Component {
+import ReactDOM from "react-dom";
+import {connect, Provider} from "react-redux";
 
-    apiURL = "http://localhost:9200/api";
+import store from "./store";
+import {loadLog} from "./models/log";
+import {fetchLog} from "./models/log";
 
-    state = {
-        logs: []
-    };
 
-    doFetch = (reqId) => {
-        let self = this;
-        let url = this.apiURL;
-        if (typeof reqId === 'string') {
-            url += '/logs?rid=' + reqId;
-        } else {
-            url += "/feelinglucky";
-        }
-        self.setState(state => ({
-            logs: {text: "Loading..."}
-        }));
-        fetch(url)
-            .then(function (response) {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Network Error.  Status code: ' + response.status);
-                }
-            })
-            .then(function (json) {
-                self.setState(state => ({
-                    logs: json
-                }));
-            })
-            .catch((error) => {
-                self.setState(state => ({
-                    logs: {text: error.message}
-                }));
-            });
-    };
+class App extends Component {
 
     render() {
         return (
             <Fragment>
-                <ToolBox search={this.doFetch} feelLucky={this.doFetch}/>
-                <Logs logs={this.state.logs}/>
+                {/*<ToolBox search={this.doFetch} feelLucky={this.doFetch}/>*/}
+                <p>{JSON.stringify(this.props)}</p>
+                {/*{Object.values(this.props.logs).map(({obj, index}) => (*/}
+                    {/*<p>{JSON.stringify(obj)}</p>*/}
+                {/*))}*/}
             </Fragment>
         );
     }
 }
+
+const rootElement = document.getElementById("root");
+
+const AppContainer = connect(
+    state => ({
+        logs: state.logs
+    }),
+    {
+        fetchLog
+    }
+)(App);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <AppContainer/>
+    </Provider>,
+    rootElement
+);
+
