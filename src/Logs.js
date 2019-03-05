@@ -14,18 +14,12 @@ export default class Logs extends Component {
 
 class LogSection extends PureComponent {
     render() {
-        let content;
-        if (!Array.isArray(this.props.jsonValue)) {
-            content = <span className={"log-header"}>{this.props.jsonValue}</span>;
-        } else {
-            content = <div>
-                <span className={"log-header"}>{this.props.children}</span>
-                {this.props.jsonValue.map((value, index) => (
-                    <LogLine key={index}>{value}</LogLine>
-                ))}
-            </div>;
-        }
-        return content;
+        return <div>
+            <span className={"log-header"}>{this.props.children}</span>
+            {this.props.jsonValue.map((value, index) => (
+                <LogLine key={index}>{value}</LogLine>
+            ))}
+        </div>;
     }
 }
 

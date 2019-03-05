@@ -1,6 +1,5 @@
 function createThunkMiddleware(extraArgument) {
     return ({ dispatch, getState }) => next => action => {
-        console.warn("in createThunkMiddleware");
         if (typeof action === "function") {
             return action(dispatch, getState, extraArgument);
         }
