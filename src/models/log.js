@@ -23,8 +23,8 @@ export default function logs(state = {}, { type, payload }) {
     console.log("type:" + type);
     switch (type) {
         case LOAD_LOG_ACTION:
-            console.log(JSON.stringify(payload));
-            return { [payload.id]: payload };
+            console.log("payload="+JSON.stringify(payload));
+            return payload;
         default:
             console.log("return default state");
             return state;
