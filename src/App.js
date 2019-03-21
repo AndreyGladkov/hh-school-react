@@ -1,33 +1,26 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 
 import Results from "./Results";
 import Form from "./Form";
+import {fetchLogs} from "./models/logs";
 
-export default class App extends Component {
-    state = {
-        response: {}
-    };
-
-    getLogs = rid => {
-        const URL = `http://localhost:9200/api/logs?rid=${rid}`;
-        fetch(URL)
-            .then(res => {
-                if (res.status !== 200) {
-                    return {Oops: [{message: "Something wrong with request ID"}]};
-                }
-                return res.json();
-            })
-            .then(json => {
-                this.setState({ response: json });
-            });
-    };
-
+class App extends Component {
     render() {
         return (
             <Fragment>
-                <Form search={this.getLogs} />
-                <Results response={this.state.response} />
+                <Form search={this.props.fetchLogs} />
+                <Results response={this.props.response} />
             </Fragment>
         );
     }
 }
+
+export default connect(
+    state => ({
+        response: state.response
+    }),
+    {
+        fetchLogs
+    }
+)(App);
